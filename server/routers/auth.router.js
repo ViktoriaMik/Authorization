@@ -13,7 +13,7 @@ router.post('/activate/:token',
     authController.activateUser
 );
 router.post('/login', userMiddleware.isUserPresent, authMiddleware.isPasswordMatched, authController.login);
-// router.post('/logout', userController.logout);
+router.post('/logout',authMiddleware.checkAccessToken,);
 
-router.get('/refresh', authMiddleware.checkRefreshToken);
+router.get('/refresh', authMiddleware.checkRefreshToken, authController.refresh);
 module.exports = router;
