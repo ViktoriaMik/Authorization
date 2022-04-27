@@ -12,8 +12,8 @@ router.post('/activate/:token',
     authMiddleware.checkActionToken(tokenType.ACTIVATE),
     authController.activateUser
 );
-// router.post('/login', userController.login);
+router.post('/login', userMiddleware.isUserPresent, authMiddleware.isPasswordMatched, authController.login);
 // router.post('/logout', userController.logout);
-// router.get('/activate/:link', userController.activate);
-// router.get('/refresh', userController.refresh);
+
+router.get('/refresh', authMiddleware.checkRefreshToken);
 module.exports = router;
