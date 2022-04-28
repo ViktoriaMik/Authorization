@@ -1,7 +1,7 @@
 const {User, O_Auth} = require('../models');
-const {USER_ACTIVE} = require('../constants/responce.message');
+const {USER_ACTIVE, USER_UPDATE} = require('../constants/responce.message');
 const {userNormalizator} = require('../helpers/user.normalize');
-const {jwtService} = require('../services');
+const {jwtService, passwordService} = require('../services');
 const {headerToken} = require('../constants/')
 
 module.exports = {
@@ -58,5 +58,18 @@ module.exports = {
             next(e);
         }
     },
+    resetPassword: async (req, res, next) => {
+        try {
+            const {_id} = req.user;
+
+            const hashedPassword = await passwordService.hash(req.body.password);
+            await User.updateOne({_id}, {password: hashedPassword})
+
+            res.code(200).json(USER_UPDATE);
+            next();
+        } catch (e) {
+            next(e)
+        }
+    }
 
 }

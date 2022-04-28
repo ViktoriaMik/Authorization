@@ -16,7 +16,7 @@ module.exports = {
             await Action.create({token, type: ACTIVATE, user_id: newUser._id})
 
             const URL = `${API}/auth/activate/${token}`
-            console.log(URL)
+
             await emailService.sendMail(email, emailAction.WELCOME, {userName: name, token})
 
             const tokenPair = jwtService.generateTokenPair();

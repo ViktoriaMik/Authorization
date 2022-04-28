@@ -29,8 +29,9 @@ module.exports = {
     isUserPresent: async (req, res, next) => {
         try {
             const {email} = req.body;
+
             const user = await User.findOne({email}).select('+password')
-            console.log(user)
+
             if (!user) {
                 throw new ErrorHandler(WRONG_EMAIL_OR_PASSWORD.message, WRONG_EMAIL_OR_PASSWORD.code)
             }

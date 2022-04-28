@@ -1,13 +1,14 @@
 const {INVALID_DATA} = require('../error/error.message');
 const ErrorHandler = require('../error/error.handler');
 const {Action, O_Auth} = require('../models');
-const {passwordService, jwtService} = require('../services');
-const {headerToken, tokenType} = require('../constants/');
+const {passwordService, jwtService, emailService} = require('../services');
+const {headerToken, tokenType, emailAction} = require('../constants/');
 
 module.exports = {
-    checkActionToken: (tokenType) => async (req, res, next) => {
+    checkActionToken: (tokenType, fromParams) => async (req, res, next) => {
         try {
-            const {token} = req.params
+            const token = fromParams ? req.params.token : req.get(headerToken.AUTHORIZATION);
+
             if (!token) {
                 throw new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
@@ -78,5 +79,24 @@ module.exports = {
         } catch (e) {
             next(e)
         }
-    }
+    },
+    forgotPasswordEmail: async (req, res, next) => {
+        try {
+            const token = await jwtService.createActionToken(tokenType.FORGOT_PASSWORD);
+            if (!token) {
+                throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
+            }
+            await Action.create({token, type: tokenType.FORGOT_PASSWORD, user_id: req.user._id})
+            const forgotPasswordUrl = `https://localhost:6000/auth/password/forgot/reset`
+            await emailService.sendMail(req.user.email, emailAction.FORGOT_PASSWORD_EMAIL, {forgotPasswordUrl})
+
+            req.tokenFP = token;
+            res.json(token)
+            next()
+        } catch (e) {
+            next(e)
+        }
+    },
+
+
 }

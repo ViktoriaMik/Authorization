@@ -9,4 +9,7 @@ const ActionShema = new Schema({
     {
         timestamps: true
     });
+ActionShema.pre('findOne', function () {
+    this.populate('user_id')
+});
 module.exports = model('action', ActionShema);
