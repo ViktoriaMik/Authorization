@@ -70,6 +70,18 @@ module.exports = {
         } catch (e) {
             next(e)
         }
+    },
+    setNewPassword: async (req, res, next) => {
+        try {
+            const hashedPassword = await passwordService.hash(req.newPassword);
+            const {_id, email} = req.user
+            await User.updateOne({_id}, {password: hashedPassword})
+            const user = await User.findOne({email}).select('+password')
+            res.json(USER_UPDATE);
+            next();
+        } catch (e) {
+            next(e)
+        }
     }
 
 }

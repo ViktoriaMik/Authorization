@@ -28,9 +28,13 @@ router.get('/refresh',
 router.post('/forgot-password',
     userMiddleware.isUserPresent,
     authMiddleware.forgotPasswordEmail
-)
+);
 router.post('/password/forgot/reset',
     authMiddleware.checkActionToken(tokenType.FORGOT_PASSWORD, false),
     authController.resetPassword
-)
+);
+router.post('/password/reset',
+    authMiddleware.comparePassword,
+    authController.setNewPassword
+);
 module.exports = router;

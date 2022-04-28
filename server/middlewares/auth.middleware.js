@@ -1,6 +1,6 @@
 const {INVALID_DATA} = require('../error/error.message');
 const ErrorHandler = require('../error/error.handler');
-const {Action, O_Auth} = require('../models');
+const {Action, O_Auth, User} = require('../models');
 const {passwordService, jwtService, emailService} = require('../services');
 const {headerToken, tokenType, emailAction} = require('../constants/');
 
@@ -97,6 +97,26 @@ module.exports = {
             next(e)
         }
     },
+    comparePassword: async (req, res, next) => {
+        try {
+            const {newPassword, password} = req.body;
+            const token = req.get(headerToken.AUTHORIZATION)
+
+            const {user_id: {email}} = await O_Auth.findOne({access_token: token})
+            const user = await User.findOne({email}).select('+password')
+
+            if (!token || !user) {
+                throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
+            }
+            await passwordService.compare(req.body.password, user.password)
+
+            req.user = user
+            req.newPassword = newPassword
+            next()
+        } catch (e) {
+            next(e)
+        }
+    }
 
 
 }
