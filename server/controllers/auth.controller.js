@@ -65,7 +65,7 @@ module.exports = {
             const hashedPassword = await passwordService.hash(req.body.password);
             await User.updateOne({_id}, {password: hashedPassword})
 
-            res.code(200).json(USER_UPDATE);
+            res.json(USER_UPDATE);
             next();
         } catch (e) {
             next(e)
