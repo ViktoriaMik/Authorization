@@ -1,0 +1,13 @@
+<div class="header-component">
+    <div class="log-in" (click)="openLogin()">Log In</div>
+    <img src="assets/icons/profile_avatar_blue.svg" width="42" height="42"
+         alt="profile_avatar_blue " (click)="openLogin()"/>
+</div>
+
+<app-header-modal [displayDialog]="loginUser  " (onHide)="loginUser=false">
+    <app-login *ngIf="loginUser"></app-login>
+</app-header-modal>
+
+<app-header-modal [displayDialog]="openRegisterModal" (onHide)="openRegisterModal=false">
+    <app-register *ngIf="openRegisterModal"></app-register>
+</app-header-modal>

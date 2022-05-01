@@ -1,10 +1,17 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {DialogModule} from "primeng/dialog";
 
-const routes: Routes = [];
+const routes: Routes = [
+    {path: '', loadChildren: () => import('./components/navigation.module').then(m => m.NavigationModule)},
+
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes), DialogModule, ],
+    declarations: [],
+    exports: [RouterModule,]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
+

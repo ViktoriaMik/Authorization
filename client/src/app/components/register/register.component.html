@@ -1,0 +1,16 @@
+<form class="login-form" [formGroup]="registerForm">
+    <div>
+        <div class="content-box">Name</div>
+        <input class="input-login" formControlName="name" placeholder="name">
+    </div>
+    <div>
+        <div class="content-box">E-Mail</div>
+        <input class="input-login" formControlName="email" placeholder="mail@mail.com"></div>
+    <div>
+        <div class="content-box">Password</div>
+        <input class="input-login" formControlName="password" placeholder="12345678">
+    </div>
+    <div class="button-register">
+        <button (click)="register()"> Register</button>
+    </div>
+</form>

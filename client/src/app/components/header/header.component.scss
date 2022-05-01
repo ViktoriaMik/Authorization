@@ -1,0 +1,19 @@
+@import "../client/src/assets/scss/partials";
+
+.header-component {
+  width: 100%;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: $primary-font-body;
+  letter-spacing: 0.4px;
+  color: $color-blue-200;
+  background: rgba(179, 145, 229, 0.58);
+
+  .log-in {
+    padding: 0 35px;
+    font-family: $primary-font-body;
+    font-size: 18px;
+  }
+}

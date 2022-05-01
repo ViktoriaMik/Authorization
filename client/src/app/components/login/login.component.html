@@ -1,0 +1,15 @@
+<form class="login-form" [formGroup]="loginForm">
+    <div>
+        <div class="content-box">E-Mail</div>
+        <input class="input-login" formControlName="email" placeholder="mail@mail.com"></div>
+    <div>
+        <div class="content-box">Password</div>
+        <input class="input-login" formControlName="password" placeholder="12345678">
+    </div>
+    <div (click)="forgotPassword()">Forgot password ?</div>
+    <div (click)="registerModal()">New here ?</div>
+    <div class="button-register">
+        <button (click)="login()"> Login</button>
+    </div>
+</form>
+
