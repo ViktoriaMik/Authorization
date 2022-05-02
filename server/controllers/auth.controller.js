@@ -3,13 +3,14 @@ const {USER_ACTIVE, USER_UPDATE} = require('../constants/responce.message');
 const {userNormalizator} = require('../helpers/user.normalize');
 const {jwtService, passwordService} = require('../services');
 const {headerToken} = require('../constants/')
+const {CLIENT_URL} = require('../config/config')
 
 module.exports = {
     activateUser: async (req, res, next) => {
         try {
             const {_id} = req.user
             await User.updateOne({_id}, {is_activated: true})
-            res.status(200).json(USER_ACTIVE)
+            res.code(200).redirect(CLIENT_URL)
             next()
         } catch (e) {
             next(e)
@@ -20,7 +21,7 @@ module.exports = {
             const {user} = req;
             const tokenPair = jwtService.generateTokenPair();
             const userNormalize = userNormalizator(user.toJSON());
-
+            res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
             await O_Auth.create({
                 ...tokenPair, user_id: userNormalize._id
             })
@@ -51,6 +52,8 @@ module.exports = {
             await O_Auth.create({
                 ...tokenPair, user_id: userNormalize._id
             })
+            res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
+
             res.json({
                 user: userNormalize, ...tokenPair
             })

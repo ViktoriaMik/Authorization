@@ -8,6 +8,7 @@ const {API} = require('../config/config')
 module.exports = {
     registration: async (req, res, next) => {
         try {
+
             const hashedPassword = await passwordService.hash(req.body.password);
             const newUser = await User.create({...req.body, password: hashedPassword});
 
@@ -27,6 +28,7 @@ module.exports = {
                 ...tokenPair, user_id: user._id
             })
             req.user = user;
+            res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
 
             res.json({...tokenPair, user, token})
 

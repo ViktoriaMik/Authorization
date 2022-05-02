@@ -2,16 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config({});
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 
-const {PORT, MONGO_CONNECT_URL} = require('./config/config')
+const {PORT, MONGO_CONNECT_URL, CLIENT_URL} = require('./config/config')
 const apiRouter = require('./routers/index')
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use(cookieParser())
 app.use(cors());
+
 
 app.use('/', apiRouter);
 
@@ -25,6 +27,7 @@ app.use('*', (err, req, res, next) => {
             message: err.message
         })
 })
-app.listen(6000, () => {
-    console.log('App listen 6000')
-  })
+app.listen(PORT, () => {
+    console.log(`App listen ${PORT}`)
+})
+

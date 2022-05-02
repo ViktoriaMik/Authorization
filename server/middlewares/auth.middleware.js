@@ -61,14 +61,9 @@ module.exports = {
     },
     checkRefreshToken: async (req, res, next) => {
         try {
-            const token = req.get(headerToken.AUTHORIZATION);
-            if (!token) {
-                throw new ErrorHandler('Invalid token', 401)
-            }
-            await jwtService.verifyToken(token, tokenType.REFRESH);
-
-            const {user_id: user} = await O_Auth.findOne({refresh_token: token}).populate('user_id');
-            await O_Auth.remove({refresh_token: token})
+            const {refresh_token} = req.cookies
+            const {user_id: user} = await O_Auth.findOne({refresh_token}).populate('user_id');
+            await O_Auth.remove({refresh_token})
 
             req.user = user;
 
@@ -87,7 +82,7 @@ module.exports = {
                 throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
             await Action.create({token, type: tokenType.FORGOT_PASSWORD, user_id: req.user._id})
-            const forgotPasswordUrl = `https://localhost:6000/auth/password/forgot/reset`
+            const forgotPasswordUrl = `https://localhost:5000/auth/password/forgot/reset`
             await emailService.sendMail(req.user.email, emailAction.FORGOT_PASSWORD_EMAIL, {forgotPasswordUrl})
 
             req.tokenFP = token;
