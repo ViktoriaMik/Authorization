@@ -5,7 +5,7 @@ const {USER_ALREADY_EXIST, WRONG_EMAIL_OR_PASSWORD} = require('../error/error.me
 
 module.exports = {
     isBodyValid: (req, res, next) => {
-                const {error, value} = userValidator.createUserValidator.validate(req.body);
+        const {error, value} = userValidator.createUserValidator.validate(req.body);
 
         if (error) {
             throw new Error(error.details[0].message);

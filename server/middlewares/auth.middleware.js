@@ -42,14 +42,14 @@ module.exports = {
     },
     checkAccessToken: async (req, res, next) => {
         try {
-            const token = req.get(headerToken.AUTHORIZATION);
+            const token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
 
             if (!token) {
                 throw new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
             await jwtService.verifyToken(token, tokenType.ACCESS);
-            const {user_id: user} = await O_Auth.findOne({access_token: token});
 
+            const {user_id: user} = await O_Auth.findOne({access_token: token});
             req.user = user;
             if (!user) {
                 throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code);

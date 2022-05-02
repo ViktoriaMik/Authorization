@@ -30,7 +30,7 @@ module.exports = {
             req.user = user;
             res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
 
-            res.json({...tokenPair, user, token})
+            res.json({access_token:tokenPair.access_token, user, token})
 
             next()
         } catch (e) {

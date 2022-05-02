@@ -27,7 +27,7 @@ module.exports = {
             })
 
             res.json({
-                user: userNormalize, ...tokenPair
+                    user: userNormalize, access_token:tokenPair.access_token
             })
         } catch (e) {
             next(e)
@@ -55,7 +55,7 @@ module.exports = {
             res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
 
             res.json({
-                user: userNormalize, ...tokenPair
+                user: userNormalize, access_token:tokenPair.access_token
             })
         } catch (e) {
             next(e);
