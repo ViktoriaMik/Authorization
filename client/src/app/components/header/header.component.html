@@ -1,7 +1,24 @@
 <div class="header-component">
-    <div class="log-in" (click)="openLogin()">Log In</div>
-    <img src="assets/icons/profile_avatar_blue.svg" width="42" height="42"
-         alt="profile_avatar_blue " (click)="openLogin()"/>
+    <div class="container" *ngIf="!userMainInfo" (click)="openLogin()">
+        <div class="log-in">
+            <div>
+                log In
+            </div>
+        </div>
+        <img src="assets/icons/profile_avatar_blue.svg" width="42" height="42"
+             alt="profile_avatar_blue "/>
+    </div>
+    <div class="container" *ngIf="userMainInfo">
+        <div class="log-in">
+            <div>
+                {{userMainInfo.name}}
+            </div>
+        </div>
+        <div (click)="logOut()">
+            <img src="assets/icons/icon-logout-blue.svg" width="22" height="22"
+                 alt="profile_avatar_blue "/>
+        </div>
+    </div>
 </div>
 
 <app-header-modal [displayDialog]="loginUser  " (onHide)="loginUser=false">

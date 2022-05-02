@@ -17,4 +17,19 @@
     font-size: 18px;
   }
 
+  .container-options {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+
+  }
+
+  .option {
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
+
 }

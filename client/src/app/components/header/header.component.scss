@@ -11,9 +11,18 @@
   color: $color-blue-200;
   background: rgba(179, 145, 229, 0.58);
 
-  .log-in {
-    padding: 0 35px;
-    font-family: $primary-font-body;
-    font-size: 18px;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+
+    .log-in {
+      padding: 0 35px;
+      font-family: $primary-font-body;
+      font-size: 18px;
+
+    }
   }
+
 }
