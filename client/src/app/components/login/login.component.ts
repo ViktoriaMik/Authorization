@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {ModalService} from "../../services/modal.service";
-import {AppConfigService} from "../../services/app-config.service";
+import {AppConfigService, ModalService, AuthService} from "../../services/index";
+import {IUser} from "../../interfaces";
 
 
 @Component({
@@ -13,7 +12,7 @@ import {AppConfigService} from "../../services/app-config.service";
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     openRegisterModal: boolean = false;
-    user: any;
+    user = this.appConfig.userSubject.value;
 
     customValidator(control: AbstractControl): null | object {
         return null
@@ -34,12 +33,11 @@ export class LoginComponent implements OnInit {
 
 
     login() {
-        const data = this.loginForm.value
-        this.authService.login(data).subscribe((res: any) => {
-            this.appConfig.userSubject.next(res);
-            this.user = res;
+        this.authService.login(this.loginForm.getRawValue()).subscribe((res: any) => {
+            console.log(res)
+            this.appConfig.userSubject.next(res.user);
             localStorage.setItem('user', JSON.stringify(res))
-            this.appConfig.saveAccessToken(this.user)
+            this.authService.setAccessToken(res.access_token)
         })
         this.modalService.loginHeaderModal.next(0)
     }

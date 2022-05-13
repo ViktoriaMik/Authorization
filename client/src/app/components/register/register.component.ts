@@ -5,6 +5,7 @@ import {AppConfigService} from "../../services/app-config.service";
 import {ModalService} from "../../services/modal.service";
 
 
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -12,21 +13,13 @@ import {ModalService} from "../../services/modal.service";
 })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
-    user: object = {}
-    userModel = {
-        access_token: '',
-        refresh_token: '',
-        user: {
-            name: '',
-            email: '',
-        }
-    }
+    user = this.appConfig.userSubject.value;
 
     customValidator(control: AbstractControl): null | object {
         return null
     }
 
-    constructor(private authService: AuthService, private appConfig: AppConfigService, private modalService:ModalService) {
+    constructor(private authService: AuthService, private appConfig: AppConfigService, private modalService: ModalService) {
         this.registerForm = new FormGroup({
             name: new FormControl('', [this.customValidator]),
             email: new FormControl('', [this.customValidator]),
@@ -35,18 +28,15 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
     }
 
-
     register() {
-        const data = this.registerForm.value
-        this.authService.registration(data).subscribe((res) => {
-                this.appConfig.userSubject.next(res);
-                this.user = res;
-                localStorage.setItem('user', JSON.stringify(res))
-                this.appConfig.saveAccessToken(this.user)
-            this.modalService.loginHeaderModal.next(0);
+        this.authService.registration(this.registerForm.getRawValue()).subscribe((res) => {
+            console.log(res)
+                // this.appConfig.userSubject.next(res);
+                localStorage.setItem('user', JSON.stringify(res.user))
+                this.authService.setAccessToken(res?.access_token)
+                this.modalService.loginHeaderModal.next(0);
             }
         )
     }

@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalService} from "../../services/modal.service";
-import {FormGroup} from "@angular/forms";
-import {AppConfigService} from "../../services/app-config.service";
-import {AuthService} from "../../services/auth.service";
+import {AuthService, AppConfigService} from "../../services/index";
 
 
 @Component({
@@ -25,17 +23,15 @@ export class HeaderComponent implements OnInit {
             this.openRegisterModal = !!res
         })
 
-
+        this.appConfig.userSubject.subscribe(value => {
+            this.user = value
+            this.userMainInfo = JSON.parse(JSON.stringify(value));
+        })
     }
 
     ngOnInit(): void {
-        this.appConfig.userSubject.subscribe(value => {
-            this.user = value
-            this.userMainInfo = JSON.parse(JSON.stringify(value)).user;
-        })
-        this.userData = localStorage.getItem('user');
-        this.userData = JSON.parse(this.userData)
-        this.userMainInfo = (this.userData) && this.userData.user
+    this.userMainInfo = localStorage.getItem('user')
+        this.userMainInfo=JSON.parse(this.userMainInfo)
 
     }
 
@@ -47,7 +43,7 @@ export class HeaderComponent implements OnInit {
     logOut() {
         this.userMainInfo = false;
         localStorage.removeItem('user')
-        this.appConfig.userSubject.next('')
-        this.authService.logout().subscribe(res=>(console.log(res)))
+        this.appConfig.userSubject.next(null)
+        this.authService.logout().subscribe()
     }
 }

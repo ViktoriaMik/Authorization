@@ -6,7 +6,7 @@ import {DialogModule} from "primeng/dialog";
 import {LoginComponent} from './login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './register/register.component';
-
+import {AppConfigService, AuthService, ModalService} from "../services";
 
 
 const routes: Routes = [
@@ -27,9 +27,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         DialogModule,
         ReactiveFormsModule,
-
-
     ],
+    providers: [ModalService, AuthService, AppConfigService],
     exports: [RouterModule, LoginComponent, RegisterComponent,]
 })
 export class NavigationModule {

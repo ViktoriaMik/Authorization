@@ -10,8 +10,8 @@ import {ModalService} from "./services/modal.service";
 import {HeaderModalComponent} from "./components/modal/header-modal/header-modal.component";
 import {NavigationModule} from "./components/navigation.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpMainInterceptor} from "./Interceptor/http-main.interceptor";
 
 
 @NgModule({
@@ -32,7 +32,13 @@ import {HttpClientModule} from "@angular/common/http";
 
 
     ],
-    providers: [ModalService],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi:true,
+            useClass:HttpMainInterceptor
+        }
+    ],
     exports: [
         HeaderModalComponent
     ],
