@@ -2,8 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {urls} from "../constants/urls";
 import {AppConfigService} from "./app-config.service";
-import {Observable} from "rxjs";
-import {IResponce} from "../interfaces";
+import {Observable, tap} from "rxjs";
+import {IRegister, IResponce, IToken} from "../interfaces";
+import {ILogin} from "../interfaces/login.interface";
+import {UserService} from "./user.service";
 
 
 @Injectable({
@@ -11,12 +13,18 @@ import {IResponce} from "../interfaces";
 })
 export class AuthService {
 
-    constructor(private httpService: HttpClient, private appConfig: AppConfigService) {
+    constructor(private httpService: HttpClient, private appConfig: AppConfigService,private userService:UserService) {
     }
 
-    login(data: object) {
-        return this.httpService.post(urls.login, data);
-
+    login(data: ILogin): Observable<IResponce> {
+        return this.httpService.post<IResponce>(urls.login, data)
+            .pipe(
+                tap(({access_token,user}) => {
+                    this.setAccessToken(access_token)
+                    this.userService.setUser(user)
+                    this.appConfig.userSubject.next(user)
+                })
+            )
     }
 
     logout() {
@@ -31,16 +39,23 @@ export class AuthService {
         });
     }
 
-    registration(data: object):Observable<IResponce> {
-        return this.httpService.post<IResponce>(urls.registration, data);
+    registration(data: IRegister): Observable<IResponce> {
+        return this.httpService.post<IResponce>(urls.registration, data)
+            .pipe(
+                tap(({access_token,user}) => {
+                    this.setAccessToken(access_token)
+                    this.userService.setUser(user)
+                    this.appConfig.userSubject.next(user)
+                })
+            )
     }
 
-      getAccessToken() {
+    getAccessToken() {
         return localStorage.getItem('access_token')
     }
 
-     setAccessToken(token:any): void {
-        localStorage.setItem('access_token',token)
+    setAccessToken(token: string) {
+        localStorage.setItem('access_token', token)
     }
 
     isAuthentificted() {

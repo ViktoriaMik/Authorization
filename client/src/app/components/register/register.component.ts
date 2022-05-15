@@ -5,7 +5,6 @@ import {AppConfigService} from "../../services/app-config.service";
 import {ModalService} from "../../services/modal.service";
 
 
-
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -32,10 +31,6 @@ export class RegisterComponent implements OnInit {
 
     register() {
         this.authService.registration(this.registerForm.getRawValue()).subscribe((res) => {
-            console.log(res)
-                // this.appConfig.userSubject.next(res);
-                localStorage.setItem('user', JSON.stringify(res.user))
-                this.authService.setAccessToken(res?.access_token)
                 this.modalService.loginHeaderModal.next(0);
             }
         )

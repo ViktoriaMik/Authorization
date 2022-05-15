@@ -34,10 +34,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.authService.login(this.loginForm.getRawValue()).subscribe((res: any) => {
-            console.log(res)
             this.appConfig.userSubject.next(res.user);
-            localStorage.setItem('user', JSON.stringify(res))
-            this.authService.setAccessToken(res.access_token)
         })
         this.modalService.loginHeaderModal.next(0)
     }
