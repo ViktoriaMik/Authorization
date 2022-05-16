@@ -13,13 +13,13 @@ import {UserService} from "./user.service";
 })
 export class AuthService {
 
-    constructor(private httpService: HttpClient, private appConfig: AppConfigService,private userService:UserService) {
+    constructor(private httpService: HttpClient, private appConfig: AppConfigService, private userService: UserService) {
     }
 
     login(data: ILogin): Observable<IResponce> {
         return this.httpService.post<IResponce>(urls.login, data)
             .pipe(
-                tap(({access_token,user}) => {
+                tap(({access_token, user}) => {
                     this.setAccessToken(access_token)
                     this.userService.setUser(user)
                     this.appConfig.userSubject.next(user)
@@ -42,7 +42,18 @@ export class AuthService {
     registration(data: IRegister): Observable<IResponce> {
         return this.httpService.post<IResponce>(urls.registration, data)
             .pipe(
-                tap(({access_token,user}) => {
+                tap(({access_token, user}) => {
+                    this.setAccessToken(access_token)
+                    this.userService.setUser(user)
+                    this.appConfig.userSubject.next(user)
+                })
+            )
+    }
+
+    refresh():Observable<IResponce> {
+        return this.httpService.get<IResponce>(urls.refresh)
+            .pipe(
+                tap(({access_token, user}) => {
                     this.setAccessToken(access_token)
                     this.userService.setUser(user)
                     this.appConfig.userSubject.next(user)

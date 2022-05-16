@@ -16,5 +16,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.primengConfig.ripple = true;
+        this.userService.getUser().subscribe(res => console.log(res))
     }
 }

@@ -12,6 +12,7 @@ import {NavigationModule} from "./components/navigation.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpMainInterceptor} from "./Interceptor/http-main.interceptor";
+import {ResInterceptor} from "./Interceptor/res.interceptor";
 
 
 @NgModule({
@@ -33,11 +34,11 @@ import {HttpMainInterceptor} from "./Interceptor/http-main.interceptor";
 
     ],
     providers: [
-        {
+         {
             provide: HTTP_INTERCEPTORS,
             multi:true,
             useClass:HttpMainInterceptor
-        }
+        },
     ],
     exports: [
         HeaderModalComponent
