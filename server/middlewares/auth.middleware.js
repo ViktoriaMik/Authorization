@@ -43,12 +43,11 @@ module.exports = {
     checkAccessToken: async (req, res, next) => {
         try {
             const token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
-
+            console.log(token)
             if (!token) {
                 throw new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
-            await jwtService.verifyToken(token, tokenType.ACCESS);
-
+            await jwtService.verifyToken(token, tokenType.ACCESS)
             const {user_id: user} = await O_Auth.findOne({access_token: token});
             req.user = user;
             if (!user) {
@@ -61,9 +60,14 @@ module.exports = {
     },
     checkRefreshToken: async (req, res, next) => {
         try {
-            const {refresh_token} = req.cookies
-            const {user_id: user} = await O_Auth.findOne({refresh_token}).populate('user_id');
+            console.log('refresh')
+            const access_token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
+            const {refresh_token, user_id: user} = await O_Auth.findOne({access_token}).populate('user_id');
+            await jwtService.verifyToken(refresh_token, tokenType.REFRESH)
+
+
             await O_Auth.remove({refresh_token})
+            await O_Auth.remove({access_token})
 
             req.user = user;
 

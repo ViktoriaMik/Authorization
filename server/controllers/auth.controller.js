@@ -21,7 +21,7 @@ module.exports = {
             const {user} = req;
             const tokenPair = jwtService.generateTokenPair();
             const userNormalize = userNormalizator(user.toJSON());
-            res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
+            // res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
             await O_Auth.create({
                 ...tokenPair, user_id: userNormalize._id
             })

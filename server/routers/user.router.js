@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const {userMiddleware} = require('../middlewares/')
+const {userMiddleware,authMiddleware} = require('../middlewares/')
+const {userController} = require('../controllers')
 
 
-router.get('/', userMiddleware.isBodyValid,);
+router.get('/user', authMiddleware.checkAccessToken,userController.getUser);
 
 module.exports = router;
