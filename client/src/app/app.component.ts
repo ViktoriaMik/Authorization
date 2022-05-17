@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
-import {AuthService} from "./services";
+import {AppConfigService, AuthService} from "./services";
 import {UserService} from "./services/user.service";
 
 @Component({
@@ -11,11 +11,14 @@ import {UserService} from "./services/user.service";
 export class AppComponent implements OnInit {
     title = 'client';
 
-    constructor(private primengConfig: PrimeNGConfig, private authService: AuthService, private userService: UserService) {
+    constructor(private primengConfig: PrimeNGConfig, private appConfig: AppConfigService, private userService: UserService) {
     }
 
     ngOnInit() {
         this.primengConfig.ripple = true;
-        this.userService.getUser().subscribe(res => console.log(res))
+        this.userService.getUser().subscribe(res => {
+            this.appConfig.userSubject.next(res.user)
+            this.userService.setUser(res.user)
+        })
     }
 }

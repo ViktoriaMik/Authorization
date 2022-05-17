@@ -18,10 +18,10 @@ export class UserService {
         localStorage.setItem('user', JSON.stringify(user))
     }
 
-    getUser(): Observable<IUser> {
-        return this.httpService.get<IUser>(urls.getUser).pipe(
-            tap((user) => {
-                this.appConfig.userSubject.next(user)
+    getUser(): Observable<IResponce> {
+        return this.httpService.get<IResponce>(urls.getUser).pipe(
+            tap((res) => {
+                this.appConfig.userSubject.next(res.user)
             })
         )
     }

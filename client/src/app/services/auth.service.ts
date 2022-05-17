@@ -50,15 +50,13 @@ export class AuthService {
             )
     }
 
-    refresh():Observable<IResponce> {
-        return this.httpService.get<IResponce>(urls.refresh)
-            .pipe(
-                tap(({access_token, user}) => {
-                    this.setAccessToken(access_token)
-                    this.userService.setUser(user)
-                    this.appConfig.userSubject.next(user)
-                })
-            )
+    refresh(): Observable<IResponce> {
+        return this.httpService.get<IResponce>(urls.refresh).pipe(
+            tap(res => {
+                this.setAccessToken(res.access_token)
+            })
+        )
+
     }
 
     getAccessToken() {
