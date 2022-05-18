@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
-import {AppConfigService, ModalService, AuthService} from "../../services/index";
-import {IUser} from "../../interfaces";
+import {AppConfigService, ModalService, AuthService} from "../../../services";
+import {IUser} from "../../../interfaces";
 
 
 @Component({
@@ -44,6 +44,6 @@ export class LoginComponent implements OnInit {
     }
 
     forgotPassword() {
-
+        this.modalService.loginHeaderModal.next(0)
     }
 }

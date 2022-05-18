@@ -39,7 +39,8 @@ import {MainInterceptor} from "./Interceptor/main.interceptor";
         },
     ],
     exports: [
-        HeaderModalComponent
+        HeaderModalComponent,
+        HeaderComponent
     ],
     bootstrap: [AppComponent]
 })

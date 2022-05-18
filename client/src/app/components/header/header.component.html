@@ -1,4 +1,5 @@
 <div class="header-component">
+    <div [routerLink]="''"> HOME </div>
     <div class="container" *ngIf="!user" (click)="openLogin()">
         <div class="log-in">
             <div>
@@ -16,7 +17,7 @@
         </div>
         <div (click)="logOut()">
             <img src="assets/icons/icon-logout-blue.svg" width="22" height="22"
-                 alt="profile_avatar_blue "/>
+                 alt="profile_avatar_blue"/>
         </div>
     </div>
 </div>

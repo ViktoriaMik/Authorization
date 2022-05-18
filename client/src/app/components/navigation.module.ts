@@ -3,16 +3,21 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./home/home.component";
 import {DialogModule} from "primeng/dialog";
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './authorization/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {RegisterComponent} from './register/register.component';
+import {RegisterComponent} from './authorization/register/register.component';
 import {AppConfigService, AuthService, ModalService} from "../services";
+import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from "./authorization/reset-password/reset-password.component";
 
 
 const routes: Routes = [
     {
-        path: '',
-        children: [{path: 'home', component: HomeComponent}, {path: '', component: HomeComponent}]
+        path: 'auth',
+        children: [
+            {path: 'forgot-password', component: ForgotPasswordComponent},
+            {path: 'reset-password', component: ResetPasswordComponent},
+        ]
     },
 
 ];
@@ -20,7 +25,9 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ForgotPasswordComponent,
+        ResetPasswordComponent
     ],
     imports: [
         CommonModule,

@@ -29,7 +29,7 @@ router.post('/forgot-password',
     userMiddleware.isUserPresent,
     authMiddleware.forgotPasswordEmail
 );
-router.post('/password/forgot/reset',
+router.post('/reset-password',
     authMiddleware.checkActionToken(tokenType.FORGOT_PASSWORD, false),
     authController.resetPassword
 );

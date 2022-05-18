@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {urls} from "../constants/urls";
 import {AppConfigService} from "./app-config.service";
 import {Observable, tap} from "rxjs";
-import {IRegister, IResponce, IToken} from "../interfaces";
+import {IRegister, IResponce, IToken, IUser} from "../interfaces";
 import {ILogin} from "../interfaces/login.interface";
 import {UserService} from "./user.service";
 
@@ -13,7 +13,9 @@ import {UserService} from "./user.service";
 })
 export class AuthService {
 
+
     constructor(private httpService: HttpClient, private appConfig: AppConfigService, private userService: UserService) {
+
     }
 
     login(data: ILogin): Observable<IResponce> {
@@ -57,6 +59,19 @@ export class AuthService {
             })
         )
 
+    }
+
+    forgotPassword(data: string): Observable<string> {
+        return this.httpService.post<string>(urls.forgot_password, data)
+    }
+
+    resetPassword(data: string, token: string): Observable<IUser> {
+        return this.httpService.post<IUser>(urls.password_reset, data, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+            })
+        })
     }
 
     getAccessToken() {

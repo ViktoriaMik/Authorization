@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {AppConfigService} from "../../services/app-config.service";
-import {ModalService} from "../../services/modal.service";
+import {AuthService} from "../../../services/auth.service";
+import {AppConfigService} from "../../../services/app-config.service";
+import {ModalService} from "../../../services/modal.service";
 
 
 @Component({

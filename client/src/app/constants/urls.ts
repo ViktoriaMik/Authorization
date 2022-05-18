@@ -11,6 +11,6 @@ export const urls = {
     refresh: `${baseUrl}/auth/refresh`,
     forgot_password: `${baseUrl}/auth/forgot-password`,
     forgot_password_reset: `${baseUrl}/auth/password/forgot/reset`,
-    password_reset: `${baseUrl}/auth/password/reset`,
+    password_reset: `${baseUrl}/auth/reset-password`,
 
 }

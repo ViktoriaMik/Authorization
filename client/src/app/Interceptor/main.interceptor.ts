@@ -11,6 +11,9 @@ export class MainInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
+        if (request.url === "http://localhost:5000/auth/reset-password") {
+            return next.handle(request)
+        }
         const isAuthentificated = this.authService.isAuthentificted();
         if (isAuthentificated) {
             request = this.addToken(request, this.authService.getAccessToken())

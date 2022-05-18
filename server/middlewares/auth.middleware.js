@@ -59,13 +59,11 @@ module.exports = {
     },
     checkRefreshToken: async (req, res, next) => {
         try {
-
             const access_token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
             const {refresh_token, user_id: user} = await O_Auth.findOne({access_token}).populate('user_id');
             await jwtService.verifyToken(refresh_token, tokenType.REFRESH)
 
             let tokentPair = await O_Auth.findOneAndDelete({user_id: user._id})
-            console.log(tokentPair)
             req.user = user;
 
             if (!user) {
@@ -83,7 +81,7 @@ module.exports = {
                 throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
             await Action.create({token, type: tokenType.FORGOT_PASSWORD, user_id: req.user._id})
-            const forgotPasswordUrl = `https://localhost:5000/auth/password/forgot/reset`
+            const forgotPasswordUrl = `http://localhost:4200/auth/reset-password`
             await emailService.sendMail(req.user.email, emailAction.FORGOT_PASSWORD_EMAIL, {forgotPasswordUrl})
 
             req.tokenFP = token;

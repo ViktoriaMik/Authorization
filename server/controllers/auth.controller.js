@@ -27,7 +27,7 @@ module.exports = {
             })
 
             res.json({
-                    user: userNormalize, access_token:tokenPair.access_token
+                user: userNormalize, access_token: tokenPair.access_token
             })
         } catch (e) {
             next(e)
@@ -54,7 +54,7 @@ module.exports = {
             })
 
             res.json({
-                user: userNormalize, access_token:tokenPair.access_token
+                user: userNormalize, access_token: tokenPair.access_token
             })
         } catch (e) {
             next(e);
@@ -66,8 +66,9 @@ module.exports = {
 
             const hashedPassword = await passwordService.hash(req.body.password);
             await User.updateOne({_id}, {password: hashedPassword})
+            const {user} = req
 
-            res.json(USER_UPDATE);
+            res.json(user);
             next();
         } catch (e) {
             next(e)

@@ -16,6 +16,10 @@ export class HeaderComponent implements OnInit {
     userData: any;
 
     constructor(private modalService: ModalService, private appConfig: AppConfigService, private authService: AuthService) {
+        this.appConfig.userSubject.subscribe(responce => {
+            let userInfo: any = ((localStorage.getItem('user')))
+            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce
+        })
         this.modalService.loginHeaderModal.subscribe((res) => {
             this.loginUser = !!res
         })
@@ -26,10 +30,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.appConfig.userSubject.subscribe(responce => {
-            let userInfo: any = ((localStorage.getItem('user')))
-            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce
-        })
     }
 
     openLogin() {
