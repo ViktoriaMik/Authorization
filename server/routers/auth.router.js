@@ -8,7 +8,7 @@ router.post('/registration',
     userMiddleware.checkUserInDB,
     userController.registration
 );
-router.post('/activate/:token',
+router.get('/activate/:token',
     authMiddleware.checkActionToken(tokenType.ACTIVATE, true),
     authController.activateUser
 );
@@ -29,7 +29,7 @@ router.post('/forgot-password',
     userMiddleware.isUserPresent,
     authMiddleware.forgotPasswordEmail
 );
-router.post('/password/forgot/reset',
+router.post('/reset-password',
     authMiddleware.checkActionToken(tokenType.FORGOT_PASSWORD, false),
     authController.resetPassword
 );
@@ -37,4 +37,5 @@ router.post('/password/reset',
     authMiddleware.comparePassword,
     authController.setNewPassword
 );
+
 module.exports = router;

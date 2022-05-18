@@ -1,0 +1,5 @@
+export * from './token.interface'
+export * from './user.interface'
+export * from './responce.interface'
+export * from './login.interface'
+export * from './register.interface'

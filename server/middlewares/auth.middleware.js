@@ -42,14 +42,12 @@ module.exports = {
     },
     checkAccessToken: async (req, res, next) => {
         try {
-            const token = req.get(headerToken.AUTHORIZATION);
-
+            const token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
             if (!token) {
                 throw new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
-            await jwtService.verifyToken(token, tokenType.ACCESS);
+            await jwtService.verifyToken(token, tokenType.ACCESS)
             const {user_id: user} = await O_Auth.findOne({access_token: token});
-
             req.user = user;
             if (!user) {
                 throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code);
@@ -61,15 +59,11 @@ module.exports = {
     },
     checkRefreshToken: async (req, res, next) => {
         try {
-            const token = req.get(headerToken.AUTHORIZATION);
-            if (!token) {
-                throw new ErrorHandler('Invalid token', 401)
-            }
-            await jwtService.verifyToken(token, tokenType.REFRESH);
+            const access_token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
+            const {refresh_token, user_id: user} = await O_Auth.findOne({access_token}).populate('user_id');
+            await jwtService.verifyToken(refresh_token, tokenType.REFRESH)
 
-            const {user_id: user} = await O_Auth.findOne({refresh_token: token}).populate('user_id');
-            await O_Auth.remove({refresh_token: token})
-
+            let tokentPair = await O_Auth.findOneAndDelete({user_id: user._id})
             req.user = user;
 
             if (!user) {
@@ -87,7 +81,7 @@ module.exports = {
                 throw  new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
             await Action.create({token, type: tokenType.FORGOT_PASSWORD, user_id: req.user._id})
-            const forgotPasswordUrl = `https://localhost:6000/auth/password/forgot/reset`
+            const forgotPasswordUrl = `http://localhost:4200/auth/reset-password`
             await emailService.sendMail(req.user.email, emailAction.FORGOT_PASSWORD_EMAIL, {forgotPasswordUrl})
 
             req.tokenFP = token;

@@ -20,7 +20,6 @@ module.exports = {
             if (user) {
                 throw new ErrorHandler(USER_ALREADY_EXIST.message, USER_ALREADY_EXIST.code)
             }
-
             next()
         } catch (e) {
             next(e)
@@ -40,6 +39,7 @@ module.exports = {
         } catch (e) {
             next(e)
         }
-    }
+    },
+
 
 }

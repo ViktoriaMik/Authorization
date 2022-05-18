@@ -1,0 +1,10 @@
+<p-dialog [appendTo]="'body'" [styleClass]="currentComponentClass" [(visible)]="displayDialog" [modal]="true"
+          [blockScroll]="false" [showHeader]="false" [dismissableMask]="true" (onHide)="hideDialog()"
+          [positionTop]="positionTop">
+    <div class="ui-dialog-content-my" [style.background-color]="backgroundColor">
+        <div class="close-dialog" *ngIf="closeDialog">
+            <img src="/assets/icons/close_icons.svg" (click)="hideDialog()" alt="">
+        </div>
+        <ng-content></ng-content>
+    </div>
+</p-dialog>

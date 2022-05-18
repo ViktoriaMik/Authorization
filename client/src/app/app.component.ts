@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PrimeNGConfig} from 'primeng/api';
+import {AppConfigService, AuthService} from "./services";
+import {UserService} from "./services/user.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'client';
+export class AppComponent implements OnInit {
+    title = 'client';
+
+    constructor(private primengConfig: PrimeNGConfig, private appConfig: AppConfigService, private userService: UserService) {
+    }
+
+    ngOnInit() {
+        this.primengConfig.ripple = true;
+        this.userService.getUser().subscribe(res => {
+            this.appConfig.userSubject.next(res)
+            this.userService.setUser(res)
+        })
+    }
 }

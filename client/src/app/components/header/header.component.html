@@ -1,0 +1,31 @@
+<div class="header-component">
+    <div [routerLink]="''"> HOME </div>
+    <div class="container" *ngIf="!user" (click)="openLogin()">
+        <div class="log-in">
+            <div>
+                log In
+            </div>
+        </div>
+        <img src="assets/icons/profile_avatar_blue.svg" width="42" height="42"
+             alt="profile_avatar_blue "/>
+    </div>
+    <div class="container" *ngIf="user">
+        <div class="log-in">
+            <div>
+                {{user.name}}
+            </div>
+        </div>
+        <div (click)="logOut()">
+            <img src="assets/icons/icon-logout-blue.svg" width="22" height="22"
+                 alt="profile_avatar_blue"/>
+        </div>
+    </div>
+</div>
+
+<app-header-modal [displayDialog]="loginUser  " (onHide)="loginUser=false">
+    <app-login *ngIf="loginUser"></app-login>
+</app-header-modal>
+
+<app-header-modal [displayDialog]="openRegisterModal" (onHide)="openRegisterModal=false">
+    <app-register *ngIf="openRegisterModal"></app-register>
+</app-header-modal>
