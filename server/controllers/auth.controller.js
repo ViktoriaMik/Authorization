@@ -52,7 +52,6 @@ module.exports = {
             await O_Auth.create({
                 ...tokenPair, user_id: userNormalize._id
             })
-            res.cookie('refresh_token', tokenPair.refresh_token, {maxAge: 60 * 24 * 60 * 60 * 1000, httpOnly: true})
 
             res.json({
                 user: userNormalize, access_token:tokenPair.access_token

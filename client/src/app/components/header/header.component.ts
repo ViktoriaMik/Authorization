@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalService} from "../../services/modal.service";
-import {AuthService, AppConfigService} from "../../services/index";
+import {AppConfigService, AuthService} from "../../services/index";
 
 
 @Component({
@@ -23,21 +23,17 @@ export class HeaderComponent implements OnInit {
             this.openRegisterModal = !!res
         })
 
-        this.appConfig.userSubject.subscribe(value => {
-            this.user = value
-            this.userMainInfo = JSON.parse(JSON.stringify(value));
-        })
     }
 
     ngOnInit(): void {
-    this.userMainInfo = localStorage.getItem('user')
-        this.userMainInfo=JSON.parse(this.userMainInfo)
-
+        this.appConfig.userSubject.subscribe(responce => {
+            let userInfo: any = ((localStorage.getItem('user')))
+            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce
+        })
     }
 
     openLogin() {
         this.modalService.loginHeaderModal.next(1);
-
     }
 
     logOut() {

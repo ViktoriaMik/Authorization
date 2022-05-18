@@ -43,7 +43,6 @@ module.exports = {
     checkAccessToken: async (req, res, next) => {
         try {
             const token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
-            console.log(token)
             if (!token) {
                 throw new ErrorHandler(INVALID_DATA.message, INVALID_DATA.code)
             }
@@ -60,15 +59,13 @@ module.exports = {
     },
     checkRefreshToken: async (req, res, next) => {
         try {
-            console.log('refresh')
+
             const access_token = req.get(headerToken.AUTHORIZATION).split(' ')[1];
             const {refresh_token, user_id: user} = await O_Auth.findOne({access_token}).populate('user_id');
             await jwtService.verifyToken(refresh_token, tokenType.REFRESH)
 
-
-            await O_Auth.remove({refresh_token})
-            await O_Auth.remove({access_token})
-
+            let tokentPair = await O_Auth.findOneAndDelete({user_id: user._id})
+            console.log(tokentPair)
             req.user = user;
 
             if (!user) {

@@ -18,16 +18,6 @@ export class MainInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((err: HttpErrorResponse): any => {
                 if (err.status === 401) {
-                    console.log('Unhoriz')
-                    // return this.authService.refresh().pipe(
-                    //     tap(res => {
-                    //             authRequ = request.clone({
-                    //                 setHeaders: {Authorization: `Bearer ${res.access_token}`}
-                    //             })
-                    //             return next.handle(authRequ)
-                    //         }
-                    //     ),
-                    // )
                     return this.handle401(request, next)
                 }
 
