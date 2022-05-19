@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalService} from "../../services/modal.service";
 import {AppConfigService, AuthService} from "../../services/index";
+import {FormControl} from "@angular/forms";
 
 
 @Component({
@@ -12,8 +13,13 @@ export class HeaderComponent implements OnInit {
     loginUser = true;
     openRegisterModal = false
     user = this.appConfig.userSubject.value;
-    userMainInfo: any;
-    userData: any;
+    userMainInfo: boolean;
+    languageItems = [
+        {id: 'de', label: 'DE'},
+        {id: 'en', label: 'EN'}
+    ];
+
+    language = new FormControl({id: 'en', label: 'EN'});
 
     constructor(private modalService: ModalService, private appConfig: AppConfigService, private authService: AuthService) {
         this.appConfig.userSubject.subscribe(responce => {
@@ -26,10 +32,13 @@ export class HeaderComponent implements OnInit {
         this.modalService.modalRegister.subscribe((res) => {
             this.openRegisterModal = !!res
         })
-
+        this.userMainInfo = !!this.user ? true : false
     }
 
     ngOnInit(): void {
+        this.language.valueChanges.subscribe(value => {
+            this.appConfig.lang.next(value.id)
+        })
     }
 
     openLogin() {

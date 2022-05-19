@@ -7,11 +7,12 @@
         <input class="input-login" formControlName="password" type="password" placeholder="12345678">
     </div>
     <div class="container-options" style="display: flex">
-        <div class="option" [routerLink]="'auth/forgot-password'" (click)="forgotPassword()">Forgot password ?</div>
-        <div class="option" (click)="registerModal()">New here ?</div>
+        <div class="option" [routerLink]="'auth/forgot-password'"
+             (click)="forgotPassword()">{{'Forgot your password' | translate}}</div>
+        <div class="option" (click)="registerModal()">{{'New here' | translate}}</div>
     </div>
     <div class="button-register">
-        <button (click)="login()"> Login</button>
+        <button (click)="login()"> {{'Login' | translate}}</button>
     </div>
 </form>
 
