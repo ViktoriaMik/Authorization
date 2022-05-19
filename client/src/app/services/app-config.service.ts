@@ -8,6 +8,7 @@ import {IUser} from "../interfaces";
 export class AppConfigService {
     userSubject = new BehaviorSubject<IUser | null>(null);
     actionToken = new BehaviorSubject<string>('');
+    lang = new BehaviorSubject('en')
 
     constructor() {
     }

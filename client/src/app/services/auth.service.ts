@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {urls} from "../constants/urls";
-import {AppConfigService} from "./app-config.service";
 import {Observable, tap} from "rxjs";
-import {IRegister, IResponce, IToken, IUser} from "../interfaces";
+import {IRegister, IResponce, IUser} from "../interfaces";
 import {ILogin} from "../interfaces/login.interface";
-import {UserService} from "./user.service";
+import {AppConfigService, UserService} from "../services";
 
 
 @Injectable({

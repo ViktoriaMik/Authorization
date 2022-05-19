@@ -1,9 +1,17 @@
 <div class="header-component">
-    <div [routerLink]="''"> HOME </div>
+    <div [routerLink]="''"> HOME</div>
+    <div class="select-container">
+        <div class="language-select">
+            <ng-select class="language" [formControl]="language" [items]="languageItems" [searchable]="false"
+                       [clearable]="false">
+            </ng-select>
+
+        </div>
+    </div>
     <div class="container" *ngIf="!user" (click)="openLogin()">
         <div class="log-in">
             <div>
-                log In
+                {{'log_In'|translate}}
             </div>
         </div>
         <img src="assets/icons/profile_avatar_blue.svg" width="42" height="42"

@@ -9,6 +9,7 @@ import {RegisterComponent} from './authorization/register/register.component';
 import {AppConfigService, AuthService, ModalService} from "../services";
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {ResetPasswordComponent} from "./authorization/reset-password/reset-password.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         DialogModule,
         ReactiveFormsModule,
+        TranslateModule,
     ],
     providers: [ModalService, AuthService, AppConfigService],
     exports: [RouterModule, LoginComponent, RegisterComponent,]
