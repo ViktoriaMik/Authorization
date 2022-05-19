@@ -1,5 +1,6 @@
 @import "../client/src/assets/scss/partials";
 
+
 .header-component {
   width: 100%;
   height: 62px;
@@ -10,6 +11,86 @@
   letter-spacing: 0.4px;
   color: $color-blue-200;
   background: rgba(179, 145, 229, 0.58);
+
+  .select-container {
+    margin-right: 20px;
+    display: flex;
+
+    .language-select {
+      display: flex;
+      align-items: center;
+      z-index: 3;
+
+      ::ng-deep {
+        ng-select {
+          &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+            box-shadow: none;
+          }
+
+          .ng-select-container {
+            width: 60px;
+            min-height: 24px;
+            font-size: 15px;
+            color: $color-blue-200;
+            border-radius: 0;
+            border: none;
+            cursor: pointer;
+
+            &:hover, &:focus {
+              box-shadow: none;
+            }
+
+            .ng-value-container {
+              padding-left: 14px;
+
+              &:after {
+                content: "";
+                display: flex;
+                height: 8px;
+                width: 8px;
+                position: absolute;
+                right: 4px;
+                top: 23px;
+                background-size: 8px 8px;
+                background-image: url("~src/assets/icons/arrow_bottom_blue.svg");
+                background-repeat: no-repeat;
+              }
+            }
+
+            .ng-arrow-wrapper {
+              display: none;
+            }
+          }
+
+          .ng-dropdown-panel {
+            margin: 18px 0 0;
+            left: unset;
+            display: flex;
+            justify-content: center;
+            background: $color-white-rgba-200;
+            color: $color-blue-200;
+            border: none;
+
+
+            .ng-dropdown-panel-items {
+              .ng-option {
+                font-size: 15px;
+                text-align: center;
+                color: $color-blue-200;
+                background-color: unset;
+                border-bottom: 1px solid $color-blue-rgba-200;
+
+                &:last-child {
+                  border: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
 
   .container {
     display: flex;

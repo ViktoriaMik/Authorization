@@ -8,10 +8,17 @@ import {DialogModule} from 'primeng/dialog';
 import {HomeComponent} from './components/home/home.component';
 import {HeaderModalComponent} from "./components/modal/header-modal/header-modal.component";
 import {NavigationModule} from "./components/navigation.module";
-import {ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {MainInterceptor} from "./Interceptor/main.interceptor";
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {NgSelectModule} from "@ng-select/ng-select";
 
+export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
+    return new TranslateHttpLoader(http, './assets/i18n/' +
+        '', '.json');
+}
 
 @NgModule({
     declarations: [
@@ -29,6 +36,16 @@ import {MainInterceptor} from "./Interceptor/main.interceptor";
         NavigationModule,
         ReactiveFormsModule,
 
+        FormsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        NgSelectModule
+
 
     ],
     providers: [
@@ -44,5 +61,7 @@ import {MainInterceptor} from "./Interceptor/main.interceptor";
     ],
     bootstrap: [AppComponent]
 })
+
 export class AppModule {
+
 }
