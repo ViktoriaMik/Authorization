@@ -25,9 +25,6 @@ export class AppComponent implements OnInit {
             this.translateService.setDefaultLang(value)
         })
         this.primengConfig.ripple = true;
-        this.userService.getUser().subscribe(res => {
-            this.appConfig.userSubject.next(res)
-            this.userService.setUser(res)
-        })
+
     }
 }

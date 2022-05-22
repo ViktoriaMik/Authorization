@@ -2,17 +2,18 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DialogModule} from "primeng/dialog";
 import {HomeComponent} from "./components/home/home.component";
+import {UserLoadResolver} from "./services/user-load.resolver";
 
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
+        component: HomeComponent,resolve:[UserLoadResolver],
         loadChildren: () => import('./components/navigation.module').then(m => m.NavigationModule)
     },
     {
         path: 'home',
         component: HomeComponent,
-        loadChildren: () => import('./components/navigation.module').then(m => m.NavigationModule)
+        loadChildren: () => import('./components/navigation.module').then(m => m.NavigationModule),
     },
 
 ];
