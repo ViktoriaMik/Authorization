@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit {
     logOut() {
         this.userMainInfo = false;
         localStorage.removeItem('user')
+        localStorage.removeItem('access_token')
         this.appConfig.userSubject.next(null)
         this.authService.logout().subscribe()
     }

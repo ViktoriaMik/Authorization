@@ -9,6 +9,8 @@ import {AppConfigService, AuthService, ModalService} from "../services";
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {ResetPasswordComponent} from "./authorization/reset-password/reset-password.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {TrelloComponent} from "./trello/trello.component";
+import {RoleUserGuard} from "../guards/role-user.guard";
 
 
 const routes: Routes = [
@@ -19,6 +21,9 @@ const routes: Routes = [
             {path: 'reset-password', component: ResetPasswordComponent},
         ]
     },
+    {
+        path: 'trello', component: TrelloComponent, canActivate:[RoleUserGuard]
+    },
 
 ];
 
@@ -27,7 +32,9 @@ const routes: Routes = [
         LoginComponent,
         RegisterComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        TrelloComponent,
+
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,161 @@
+* {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wraper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50px 0;
+
+
+  .content {
+
+    .board {
+      display: flex;
+      width: 100%;
+
+      .board-item {
+        display: flex;
+        flex-direction: column;
+        align-self: baseline;
+        max-width: 250px;
+        width: 100%;
+        background: #cdbfd76e;
+        margin: 0 15px;
+        padding: 10px;
+        transition: .3s all ease;
+        border-radius: 3px;
+        position: relative;
+
+        .title {
+          padding: 5px;
+          border-radius: 3px;
+          background: rgba(140, 101, 186, 0.52);
+          color: white;
+          font-size: 12px;
+          text-align: center;
+
+          &:focus {
+            outline: 1px solid #c6b4da85;
+          }
+        }
+
+        .lists {
+          min-height: 40px;
+
+          ::ng-deep .list-item {
+            background: white;
+            border-radius: 3px;
+            padding: 10px;
+            text-align: center;
+            margin: 4px 0;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 14px;
+            outline: none;
+            border: none;
+
+          }
+        }
+
+        .form {
+          border-radius: 3px;
+          margin-top: auto;
+          display: none;
+
+          .textarea {
+            resize: none;
+            height: 60px;
+            border-radius: 3px;
+            border: none;
+            background: white;
+            width: 100%;
+
+            &:focus {
+              outline: none
+            }
+          }
+
+          .buttons {
+            display: flex;
+
+            .add-item {
+              background: #8667c2;
+              border: none;
+              height: 35px;
+              cursor: pointer;
+              color: white;
+              border-radius: 3px;
+              display: flex;
+              font-size: 12px;
+              align-items: center;
+              justify-content: center;
+              width: 100%
+            }
+
+            .cancel {
+              padding: 0 10px;
+              font-size: 12px;
+              background: #f44336d4;
+              border: none;
+              height: 35px;
+              cursor: pointer;
+              color: white;
+              margin-right: 10px;
+              border-radius: 3px;
+              justify-content: center;
+              display: flex;
+              align-items: center;
+              width: 75px
+
+            }
+          }
+        }
+
+        .add-new-card {
+          background: rgba(177, 152, 205, 0.27);
+          color: white;
+          height: 30px;
+          border-radius: 3px;
+          display: flex;
+          margin-top: 5px;
+          font-size: 12px;
+          padding: 0 10px;
+          align-items: center;
+          cursor: pointer;
+
+          span {
+            font-size: 20px;
+            margin-right: 10px;
+            color: white;
+          }
+
+        }
+
+      }
+    }
+
+  }
+
+  .add-board {
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    border: none;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%);
+    color: white;
+    background: #8667c2;
+    border-radius: 3px;
+  }
+}
+
+

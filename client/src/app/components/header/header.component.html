@@ -1,5 +1,6 @@
 <div class="header-component">
     <div [routerLink]="''"> HOME</div>
+    <div [routerLink]="'/trello'">Trello</div>
     <div class="select-container">
         <div class="language-select">
             <ng-select class="language" [formControl]="language" [items]="languageItems" [searchable]="false"
@@ -8,6 +9,7 @@
 
         </div>
     </div>
+
     <div class="container" *ngIf="!user" (click)="openLogin()">
         <div class="log-in">
             <div>
