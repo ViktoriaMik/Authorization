@@ -10,7 +10,7 @@ const {ACCESS, REFRESH, ACTIVATE, FORGOT_PASSWORD} = require('../constants/token
 
 module.exports = {
     generateTokenPair: () => {
-        const access_token = jwt.sign({}, JWT_ACCESS_SECRET, {expiresIn: '1m'});
+        const access_token = jwt.sign({}, JWT_ACCESS_SECRET, {expiresIn: '1d'});
         const refresh_token = jwt.sign({}, JWT_REFRESH_SECRET, {expiresIn: '30d'});
         return {access_token, refresh_token}
     },

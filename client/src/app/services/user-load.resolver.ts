@@ -5,8 +5,8 @@ import {
     ActivatedRouteSnapshot
 } from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {UserService} from "./user.service";
-import {AppConfigService} from "./app-config.service";
+import {UserService} from './user.service';
+import {AppConfigService} from './app-config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,10 +16,10 @@ export class UserLoadResolver implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,): Observable<boolean> {
-        this.userService.getUser().subscribe(res => {
-            this.appConfig.userSubject.next(res)
-            this.userService.setUser(res)
-        })
+        !!localStorage.getItem('access_token') && this.userService.getUser().subscribe(res => {
+            this.appConfig.userSubject.next(res);
+            this.userService.setUser(res);
+        });
         return of(true);
     }
 }
