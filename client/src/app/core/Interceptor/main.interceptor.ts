@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {switchMap} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {AuthService} from '../shared/services';
+import {AuthService} from '../../shared/services';
 
 @Injectable()
 export class MainInterceptor implements HttpInterceptor {
