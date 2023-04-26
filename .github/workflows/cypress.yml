@@ -7,7 +7,7 @@ defaults:
 on:
   push:
     branches:
-      - main
+      - Authorization_FE_+_BE_stage
   pull_request:
 
 jobs:
