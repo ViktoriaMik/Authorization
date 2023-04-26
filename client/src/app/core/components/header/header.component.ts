@@ -10,6 +10,7 @@ import {FormControl} from '@angular/forms';
 export class HeaderComponent implements OnInit {
   loginUser = true;
   openRegisterModal = false;
+  openForgotPassword = false;
   user = this.appConfig.userSubject.value;
   userMainInfo: boolean;
   languageItems = [
@@ -29,6 +30,9 @@ export class HeaderComponent implements OnInit {
     });
     this.modalService.modalRegister.subscribe((res) => {
       this.openRegisterModal = res;
+    });
+    this.modalService.forgotPassword.subscribe((res) => {
+      this.openForgotPassword = res;
     });
     this.userMainInfo = !!this.user;
   }

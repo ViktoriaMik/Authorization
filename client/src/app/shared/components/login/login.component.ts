@@ -44,6 +44,6 @@ export class LoginComponent implements OnInit {
     }
 
     forgotPassword() {
-        this.modalService.loginHeaderModal.next(0)
+        this.modalService.forgotPassword.next(true)
     }
 }

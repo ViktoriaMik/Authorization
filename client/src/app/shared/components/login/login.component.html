@@ -1,13 +1,13 @@
 <form class="login-form" [formGroup]="loginForm">
     <div>
         <div class="content-box">E-Mail</div>
-        <input class="input-login" formControlName="email" placeholder="mail@mail.com"></div>
+        <input class="input-login login" formControlName="email" placeholder="mail@mail.com"></div>
     <div>
         <div class="content-box">Password</div>
-        <input class="input-login" formControlName="password" type="password" placeholder="12345678">
+        <input class="input-login password" formControlName="password" type="password" placeholder="12345678">
     </div>
     <div class="container-options" style="display: flex">
-        <div class="option" routerLink="'auth/forgot-password'"
+        <div class="option"
              (click)="forgotPassword()">{{'Forgot your password' | translate}}</div>
         <div class="option" (click)="registerModal()">{{'New here' | translate}}</div>
     </div>
