@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalService} from '../../services/modal.service';
-import {AppConfigService, AuthService} from '../../services/index';
 import {FormControl} from '@angular/forms';
-
+import {AppConfigService, AuthService, ModalService} from '../../../shared/services';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    selector: 'app-landing-layout',
+    templateUrl: './landing-layout.component.html',
+    styleUrls: ['./landing-layout.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class LandingLayoutComponent implements OnInit {
     loginUser = true;
     openRegisterModal = false;
     user = this.appConfig.userSubject.value;
@@ -21,22 +19,24 @@ export class HeaderComponent implements OnInit {
 
     language = new FormControl({id: 'en', label: 'EN'});
 
-    constructor(private modalService: ModalService, private appConfig: AppConfigService, private authService: AuthService) {
-        this.appConfig.userSubject.subscribe(responce => {
+    constructor(private modalService: ModalService,
+                private appConfig: AppConfigService,
+                private authService: AuthService) {
+        this.appConfig.userSubject.subscribe((response: any) => {
             let userInfo: any = ((localStorage.getItem('user')));
-            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce;
+            this.user = !response ? (this.user = (JSON.parse(userInfo))) : response;
         });
-        this.modalService.loginHeaderModal.subscribe((res) => {
+        this.modalService.loginHeaderModal.subscribe((res: any) => {
             this.loginUser = !!res;
         });
         this.modalService.modalRegister.subscribe((res) => {
-            this.openRegisterModal = !!res;
+            this.openRegisterModal = res;
         });
-        this.userMainInfo = !!this.user ? true : false;
+        this.userMainInfo = !!this.user;
     }
 
     ngOnInit(): void {
-        this.language.valueChanges.subscribe(value => {
+        this.language.valueChanges.subscribe((value) => {
             this.appConfig.lang.next(value.id);
         });
     }
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
     logOut() {
         this.userMainInfo = false;
         this.appConfig.userSubject.next(null);
-        this.authService.logout().subscribe(res => {
+        this.authService.logout().subscribe(() => {
             localStorage.removeItem('user');
             localStorage.removeItem('access_token');
         });

@@ -23,7 +23,8 @@ import {LoginComponent} from './components/login/login.component';
     exports: [
         HeaderModalComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         CommonModule,

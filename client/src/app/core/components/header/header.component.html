@@ -1,6 +1,6 @@
 <div class="header-component">
-    <div [routerLink]="''"> HOME</div>
-    <div [routerLink]="'/trello'">Trello</div>
+    <div > HOME</div>
+    <div >Trello</div>
     <div class="select-container">
         <div class="language-select">
             <ng-select class="language" [formControl]="language" [items]="languageItems" [searchable]="false"
@@ -38,4 +38,7 @@
 
 <app-header-modal [displayDialog]="openRegisterModal" (onHide)="openRegisterModal=false">
     <app-register *ngIf="openRegisterModal"></app-register>
+</app-header-modal>
+<app-header-modal [displayDialog]="openForgotPassword" (onHide)="openForgotPassword=false">
+    <app-forgot-password *ngIf="openForgotPassword"></app-forgot-password>
 </app-header-modal>
