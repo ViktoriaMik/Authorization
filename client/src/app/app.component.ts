@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
-import {AppConfigService} from "./services";
-import {UserService} from "./services/user.service";
+import {AppConfigService} from "./shared/services";
+import {UserService} from "./shared/services/user.service";
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({

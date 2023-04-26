@@ -2,18 +2,16 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from "./components/header/header.component";
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DialogModule} from 'primeng/dialog';
-import {HomeComponent} from './components/home/home.component';
-import {HeaderModalComponent} from "./components/modal/header-modal/header-modal.component";
-import {NavigationModule} from "./components/navigation.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {MainInterceptor} from "./Interceptor/main.interceptor";
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {MainInterceptor} from './Interceptor/main.interceptor';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {NgSelectModule} from "@ng-select/ng-select";
+import {NgSelectModule} from '@ng-select/ng-select';
+import {CoreModule} from './core/core.module';
+import {SharedModule} from './shared/shared.module';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     return new TranslateHttpLoader(http, './assets/i18n/' +
@@ -23,9 +21,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
-        HomeComponent,
-        HeaderModalComponent
     ],
     imports: [
         BrowserModule,
@@ -33,9 +28,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
         AppRoutingModule,
         NoopAnimationsModule,
         DialogModule,
-        NavigationModule,
-        ReactiveFormsModule,
-
+                ReactiveFormsModule,
+        CoreModule,
+        SharedModule,
         FormsModule,
         TranslateModule.forRoot({
             loader: {
@@ -55,10 +50,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
             useClass: MainInterceptor
         },
     ],
-    exports: [
-        HeaderModalComponent,
-        HeaderComponent
-    ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 

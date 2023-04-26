@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalService} from "../../services/modal.service";
-import {AppConfigService, AuthService} from "../../services/index";
-import {FormControl} from "@angular/forms";
+import {ModalService} from '../../services/modal.service';
+import {AppConfigService, AuthService} from '../../services/index';
+import {FormControl} from '@angular/forms';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {FormControl} from "@angular/forms";
 })
 export class HeaderComponent implements OnInit {
     loginUser = true;
-    openRegisterModal = false
+    openRegisterModal = false;
     user = this.appConfig.userSubject.value;
     userMainInfo: boolean;
     languageItems = [
@@ -23,22 +23,22 @@ export class HeaderComponent implements OnInit {
 
     constructor(private modalService: ModalService, private appConfig: AppConfigService, private authService: AuthService) {
         this.appConfig.userSubject.subscribe(responce => {
-            let userInfo: any = ((localStorage.getItem('user')))
-            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce
-        })
+            let userInfo: any = ((localStorage.getItem('user')));
+            this.user = !responce ? (this.user = (JSON.parse(userInfo))) : responce;
+        });
         this.modalService.loginHeaderModal.subscribe((res) => {
-            this.loginUser = !!res
-        })
+            this.loginUser = !!res;
+        });
         this.modalService.modalRegister.subscribe((res) => {
-            this.openRegisterModal = !!res
-        })
-        this.userMainInfo = !!this.user ? true : false
+            this.openRegisterModal = !!res;
+        });
+        this.userMainInfo = !!this.user ? true : false;
     }
 
     ngOnInit(): void {
         this.language.valueChanges.subscribe(value => {
-            this.appConfig.lang.next(value.id)
-        })
+            this.appConfig.lang.next(value.id);
+        });
     }
 
     openLogin() {
@@ -47,8 +47,10 @@ export class HeaderComponent implements OnInit {
 
     logOut() {
         this.userMainInfo = false;
-        localStorage.removeItem('user')
-        this.appConfig.userSubject.next(null)
-        this.authService.logout().subscribe()
+        this.appConfig.userSubject.next(null);
+        this.authService.logout().subscribe(res => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('access_token');
+        });
     }
 }
